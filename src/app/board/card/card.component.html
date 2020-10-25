@@ -1,0 +1,36 @@
+<div 
+  class="card"
+  id="card_{{card.id}}"
+  [ngClass]="{'card--urgent': card.priority === 'urgent', 'card--moderate': card.priority === 'moderate', 'card--low': card.priority === 'low'}"
+  >
+  <div class="card__icon">
+    <mat-icon aria-hidden="false" aria-label="urgent icon" *ngIf="card.priority === 'urgent'">alarm</mat-icon>
+    <mat-icon aria-hidden="false" aria-label="medium icon" *ngIf="card.priority === 'moderate'">autorenew</mat-icon>
+    <mat-icon aria-hidden="false" aria-label="medium icon" *ngIf="card.priority === 'low'">assignment_returned</mat-icon>
+  </div>
+  <h3 class="card__title">Tarea</h3>
+  <div class="card__actions">
+    <button  matTooltip="Edit task" matTooltipPosition="above" mat-icon-button cdkOverlayOrigin (click)="displayOverlay()" #trigger="cdkOverlayOrigin">
+      <mat-icon aria-label="icon-button to edit">edit</mat-icon>
+    </button>
+    <button  matTooltip="Delete task" matTooltipPosition="above" mat-icon-button (click)="removeTask(card)">
+      <mat-icon aria-label="icon-button to remove">delete</mat-icon>
+    </button>
+  </div>
+  
+  <p class="card__date"><strong>Fecha de finalización:</strong> {{ card.date | date }}</p>
+  <p class="card__description">{{card.description}}</p>
+</div>
+
+<ng-template
+  #connectedOverlay="cdkConnectedOverlay"
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="trigger"
+  [cdkConnectedOverlayOpen]="isOverlayDisplayed"
+  [cdkConnectedOverlayHasBackdrop]="overlayOptions.hasBackdrop"
+	[cdkConnectedOverlayPositions]="overlayOptions.positions"
+	(backdropClick)="hideOverlay()"
+  (detach)="hideOverlay()"
+	>
+  <app-form-task [card]=card [list]=list [connectedOverlay]="connectedOverlay"></app-form-task>
+</ng-template>

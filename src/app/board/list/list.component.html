@@ -1,0 +1,26 @@
+<div
+	class="list"
+	cdkDropList
+	[cdkDropListData]="list.cards"
+	(cdkDropListDropped)="drop($event)"
+	id="list_{{list.id}}"
+>
+	<h3 class="list__title"><strong>{{list.name}}</strong></h3>
+	<button [ngClass]="{'hidden': list.id !== '1'}" class="list__addButton" cdkOverlayOrigin (click)="displayOverlay()" #trigger="cdkOverlayOrigin" mat-raised-button color="primary">Añadir Tarea</button>
+	<div class="list__cards">
+		<app-card *ngFor="let card of list.cards" [card]="card" [list]="list" cdkDrag></app-card>
+	</div>
+</div>
+
+<ng-template
+  #connectedOverlay="cdkConnectedOverlay"
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="trigger"
+  [cdkConnectedOverlayOpen]="isOverlayDisplayed"
+  [cdkConnectedOverlayHasBackdrop]="overlayOptions.hasBackdrop"
+	[cdkConnectedOverlayPositions]="overlayOptions.positions"
+	(backdropClick)="hideOverlay()"
+  (detach)="hideOverlay()"
+	>
+  <app-form-task [list]=list [connectedOverlay]="connectedOverlay"></app-form-task>
+</ng-template>

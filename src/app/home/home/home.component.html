@@ -1,0 +1,24 @@
+<main class="home">
+  <h1 class="home__title">Platzi - Tablero</h1>
+  <p>En nuestro día a día siempre tenemos que realizar diferentes tipos de tareas y priorizarlas y dejarlas por escrito nos ayuda a abordarlas mucho más rápido y lograr su realización</p>
+  <p>Por ello en este tablero te invitamos a organizar tu día a día</p>
+  <section>
+    <h2>Tareas Urgentes</h2>
+    <mat-card class="home__card" *ngFor="let card of cardList">
+      <mat-card-header>
+        <div class="card__icon">
+          <mat-icon aria-hidden="false" aria-label="urgent icon" *ngIf="card.priority === 'urgent'">alarm</mat-icon>
+          <mat-icon aria-hidden="false" aria-label="medium icon" *ngIf="card.priority === 'moderate'">autorenew</mat-icon>
+          <mat-icon aria-hidden="false" aria-label="medium icon" *ngIf="card.priority === 'low'">assignment_returned</mat-icon>
+        </div>
+        <mat-card-title>Task</mat-card-title>
+        <mat-card-subtitle><strong>Fecha de finalización:</strong> {{ card.date | date }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          {{card.description}}
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </section>
+</main>

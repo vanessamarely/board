@@ -1,0 +1,7 @@
+<main class="board" cdkDropListGroup>
+  <app-list 
+    *ngFor="let list of lists"
+    [list]="list"
+    [cardStore]="cardStore"
+  ></app-list>
+</main>
